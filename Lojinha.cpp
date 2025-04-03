@@ -1,20 +1,18 @@
 #include <iostream>
 using namespace std;
 
-void compra(int opc, float &cred, int &stock) {
+void compra(int opc, float &cred) {
     char decisao;
-    float precos[] = {0.0, 1.50, 1.00, 0.50, 1.25, 3.00, 3.50};
-    int stockArray[] = {0, 3, 5, 10, 4, 20, 10};
-    int menos1 = 1;
+    float precos[] = {0.0, 1.50, 1.00, 0.50, 1.25, 3.00, 3.50, 0.25};
 
-    if (opc < 1 || opc > 6) {
-        cout << "Opção Inválida! Escolha um número de 1 a 6.\n";
+    if (opc < 1 || opc > 7) {
+        cout << "Opção Inválida! Escolha um número de 1 a 7.\n";
         return;
     }
 
     cout << "Escolheste ";
     switch (opc) {
-            case 1: cout << "o Pãozinho";             
+            case 1: cout << "o Pãozinho"; 
         break;
             case 2: cout << "o Leite"; 
         break;
@@ -26,31 +24,29 @@ void compra(int opc, float &cred, int &stock) {
         break;
             case 6: cout << "os Crepes"; 
         break;
+            case 7: cout << "uma doacao"; 
+        break;
     }
-    
+
     cout << " por $" << precos[opc] << ". Tens a certeza? (s/n): ";
     cin >> decisao;
 
     if (decisao == 's' || decisao == 'S') {
-
         if (cred >= precos[opc]) {
             cred -= precos[opc];
-            cout << "Compra realizada com sucesso! Saldo restante: $" << cred << endl;
-            stockArray[opc] -= menos1;
-            cout << stockArray[opc] << " restantes " << endl;
-            if(stockArray[opc] == 0){
-                cout << " Acabou o Stock " << endl;
-            }
-
+            cout << "\nCompra realizada com sucesso!\nSaldo restante: $" << cred << endl;
         } else {
-            cout << "Saldo insuficiente! Tens apenas $" << cred << endl;
+            cout << "\nSaldo insuficiente!\nTens $" << cred << endl;
+        }
+        if(cred == 0){
+            cout << "\nTas sem dinheiro vai trabalhar que es novo" << endl;
         }
     } else {
-        cout << "Compra cancelada.\n";
+        cout << "\nCompra cancelada.\n";
     }
 
     
-    cout << "Pressiona Enter se queres fazer Outra compra.";
+    cout << "\nPressiona se enter queres fazer outra compra . ";
     cin.ignore();
     cin.get();
 
@@ -64,9 +60,8 @@ void compra(int opc, float &cred, int &stock) {
 
 int main() {
     int opc;
-    float cred = 1000.00;
-    int stockArray[] = {0, 3, 5, 10, 4, 20, 10};
-    const int menos1 = 1;
+    float cred = 10.00;
+
     while (true) {
         cout << "-------------------------------------------------" << endl;
         cout << "|         Bem-vindo à Lojinha do Blud!         |" << endl;
@@ -77,10 +72,11 @@ int main() {
         cout << "| 4 - Manteiga   ($1.25)                        |" << endl;
         cout << "| 5 - Gelatina   ($3.00)                        |" << endl;
         cout << "| 6 - Crepes     ($3.50)                        |" << endl;
+        cout << "| 7 - Doacao     ($0.25)                        |" << endl;
         cout << "| Escolha uma das opcoes pelo numero acima:     |" << endl;
         cout << "-------------------------------------------------" << endl;
-        cout << "Saldo Atual: $" << cred << endl;
-        cout << "Digite 0 para sair da loja. " << endl;
+        cout << "\nSaldo Atual: $" << cred << endl;
+        cout << "\nDigite 0 para sair da loja. " << endl;
 
         cin >> opc;
 
@@ -89,7 +85,7 @@ int main() {
             break;
         }
 
-        compra(opc, cred, stockArray[opc]);
+        compra(opc, cred);
     }
 
     return 0;
